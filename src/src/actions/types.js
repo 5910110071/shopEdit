@@ -5,7 +5,6 @@ export const ORDER_POST = "order_post"
 export const ORDER_CANCEL = "order_cancel"
 export const ORDERS_PAYMENT_FETCH = "orders_payment_fetch"
 export const ORDER_PAYMENT_FETCH = "order_payment_fetch"
-export const ORDER_PAYMENT_DELETE = "order_payment_delete"
 
 
 export const PRODUCTS_FETCH = "products_fetch"

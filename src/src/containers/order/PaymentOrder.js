@@ -4,7 +4,7 @@ import Footer from '../../components/Footer'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 
-import { ordersFetch, orderDelete, ordersPaymentFetch ,orderPaymentDelete } from '../../actions/'
+import { ordersFetch, orderDelete, ordersPaymentFetch } from '../../actions/'
 import axios from "axios"
 class PaymentOrder extends Component {
     constructor(props) {
@@ -15,7 +15,6 @@ class PaymentOrder extends Component {
         // axios.get("http://localhost:3002/orders").then(res =>{
         //     console.log("res.data",res.data)
         // })
-        console.log("this.props.match.path",this.props.match.path)
 
     }
     showOrders() {
@@ -38,7 +37,7 @@ class PaymentOrder extends Component {
 
                         <p className="title text-right mr-2">ยอดรวม {order.totalPrice} บาท</p>
                         <div class="d-flex justify-content-end" >
-                            <button className="btn btn-secondary btn-sm title mr-2 mb-2" onClick={() => this.props.orderPaymentDelete(order.id)}>ยกเลิกรายการ</button>
+                            <button className="btn btn-secondary btn-sm title mr-2 mb-2" onClick={() => this.delOrder(order)}>ยกเลิกรายการ</button>
                             <button className="btn btn-danger btn-sm title mr-2 mb-2" onClick={() => this.props.history.push('/paymentOrderConfirm/' + order.id)}>แจ้งชำระเงิน</button>
                         </div>
                     </div>
@@ -49,10 +48,10 @@ class PaymentOrder extends Component {
     render() {
         return (
             <div>
-                <Header menu = {this.props.match.path} />
-                <div className="container" style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}}>
-                    <h2 className ="text-center pt-3">รายการที่ยังไม่ชำระเงิน</h2>
-                    <div className="row"> 
+                <Header />
+                <div className="container">
+                    <h2 className ="text-center">รายการที่ยังไม่ชำระเงิน</h2>
+                    <div className="row">
                         {this.showOrders()}
 
                     </div>
@@ -67,4 +66,4 @@ class PaymentOrder extends Component {
 function mapStateToprops({ orderPayment }) {
     return { orderPayment }
 }
-export default withRouter(connect(mapStateToprops, { ordersPaymentFetch ,orderPaymentDelete })(PaymentOrder))
+export default withRouter(connect(mapStateToprops, { ordersPaymentFetch })(PaymentOrder))

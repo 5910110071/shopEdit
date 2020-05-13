@@ -65,9 +65,9 @@ class ProductDetail extends Component {
     render() {
         return (
             <div>
-                <Header menu = {this.props.match.path}/>
-                <div className="container" style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}}>
-                    <h2 className = "text-center pt-3">รายละเอียดสินค้า</h2>
+                <Header />
+                <div className="container">
+                    <h2>รายละเอียดสินค้า</h2>
                     {this.props.products.map(product => {
                         return (
                             <div className="card mb-3 ">

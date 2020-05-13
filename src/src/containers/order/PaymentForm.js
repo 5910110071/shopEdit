@@ -59,19 +59,21 @@ class PaymentForm extends Component {
 
         )
     }
+
+
     render() {
         const { onPaymentSubmit } = this.props
         return (
             <div className="container">
                 <div className="row" >
                     {this.showOrders()}
-                    <div className = "col-12">
-                        <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
-                            {this.renderFields(orderFormField)}
-                            <button className="btn btn-block btn-danger title" type="submit" >บันทึก</button>
-                        </form>
-                    </div>
+                    <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
+                        {this.renderFields(orderFormField)}
+                        <button className="btn btn-block btn-danger title" type="submit" >บันทึก</button>
+                    </form>
                 </div>
+
+
             </div>
         )
     }

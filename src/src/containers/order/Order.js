@@ -12,8 +12,6 @@ class Order extends Component {
     }
     componentDidMount() {
         this.props.ordersFetch()
-        console.log("this.props.match 2 ", this.props.match.path)
-
     }
 
     cancelOrder(product) {
@@ -23,7 +21,7 @@ class Order extends Component {
 
     showOrders2(orders) {
         if (!orders || orders.length == 0) {
-            return <h4 className=" text-muted title col-12 text-right">ยังไม่ได้เลือกสินค้า</h4>
+            return <h4 className=" text-muted title col-12">ยังไม่ได้เลือกสินค้า</h4>
         } else {
             return orders.map(order => {
                 return (
@@ -53,9 +51,9 @@ class Order extends Component {
     render() {
         return (
             <div>
-                <Header menu = {this.props.match.path} />
-                <div className="container " style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}} >
-                    <h2 className="text-center pt-3">สินค้าในตะกร้า</h2>
+                <Header />
+                <div className="container">
+                    <h2 className="text-center">รายการสั่งซื้อ</h2>
                     
                     
 

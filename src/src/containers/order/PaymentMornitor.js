@@ -58,7 +58,7 @@ class PaymentMornitor extends Component {
 
                             <p className="title text-right mr-2">ยอดรวม {order.totalPrice} บาท</p>
                             <hr />
-                            <h5 className="text-center mt-2">ข้อมูลการชำระเงิน</h5>
+                            <h5 className="text-center mt-2">ข้อมูลการโอนเงิน</h5>
                             <div className="ml-2">
                                 <p classN>ชื่อ : {order.Name}</p>
                                 <p>ที่อยู่ : {order.Address} </p>
@@ -76,9 +76,9 @@ class PaymentMornitor extends Component {
     render() {
         return (
             <div>
-                <Header menu = {this.props.match.path} />
-                <div className="container" style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}}>
-                    <h2 className = "text-center pt-3">ตรวจสอบรายการสั่งซื้อ</h2>
+                <Header />
+                <div className="container">
+                    <h1>ตรวจสอบรายการสั่งซื้อ</h1>
                     <div className="row">
                         {this.showOrders()}
                     </div>
