@@ -15,51 +15,30 @@ class ProductDetail extends Component {
         if (this.props.match.params.id) {
             this.props.productFetch(this.props.match.params.id)
         }
-
-        /* let findOrder = this.props.orders.orders.find(order => order.product.product_id == this.props.match.params.id);
-         if (findOrder) {
-             this.setState({
-                 count: findOrder.quantity
-             })
-         }
-         else
-             this.setState({
-                 count: 0
-             })*/
     }
 
     addOrder(product) {
         this.props.orderAdd(product)
 
-    }
+    } 
 
     delOrder(id) {
 
-        let findOrder = this.props.orders.orders.find(order => order.product.product_id == id);
+        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == id);
         if (findOrder) {
             this.props.orderDelete(id)
         }
-
-
-
-
-        /*if(this.state.count > 0)
-         this.setState({
-             count: this.state.count - 1
-         })*/
-
-
     }
 
     getQuantity(product) {
-        let findOrder = this.props.orders.orders.find(order => order.product.product_id == product.product_id);
+        console.log("this.props.orders.orders",this.props.orderBuffer.orders)
+        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == product.product_id);
         if (findOrder) {
             return findOrder.quantity;
         } else {
             return 0
         }
     }
-
 
 
     render() {
@@ -120,9 +99,9 @@ class ProductDetail extends Component {
     }
 }
 
-function mapStateToProps({ products, orders }) {
-    console.log("products", products)
-    return { products, orders }
+function mapStateToProps({ products, orderBuffer }) {
+    console.log("orders", orderBuffer)
+    return { products, orderBuffer }
 }
 
 export default withRouter(connect(mapStateToProps, { productFetch, orderAdd, orderDelete })(ProductDetail))

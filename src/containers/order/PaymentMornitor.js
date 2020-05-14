@@ -4,22 +4,28 @@ import Footer from '../../components/Footer'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 
-import { ordersFetch, orderDelete, paymentFetch } from '../../actions'
+import { ordersFetch, orderDelete, ordersPaidFetch ,ordersReset } from '../../actions'
 import axios from "axios"
 class PaymentMornitor extends Component {
     constructor(props) {
         super(props)
     }
     componentDidMount() {
-        this.props.paymentFetch()
+        this.props.ordersPaidFetch()
 
         // axios.get("http://localhost:3002/orders").then(res =>{
         //     console.log("res.data",res.data)
         // })
 
     }
+
+    // componentWillUnmount(){
+    //     this.props.ordersReset()
+    //  }
+
     showOrders() {
-        return this.props.payments && Array.isArray(this.props.payments) && this.props.payments.map(order => {
+        
+        return this.props.orders && Array.isArray(this.props.orders) && this.props.orders.map(order => {
             const date = new Date(order.orderDate)
             return (
                 // <div key={order.id} className="col-md-12">
@@ -89,8 +95,8 @@ class PaymentMornitor extends Component {
         )
     }
 }
-function mapStateToprops({ payments }) {
-    console.log("payments", payments)
-    return { payments }
+function mapStateToprops({ orders }) {
+    console.log("payments", orders)
+    return { orders }
 }
-export default withRouter(connect(mapStateToprops, { paymentFetch })(PaymentMornitor))
+export default withRouter(connect(mapStateToprops, { ordersPaidFetch ,ordersReset })(PaymentMornitor))

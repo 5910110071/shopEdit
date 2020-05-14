@@ -5,7 +5,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import PaymentForm from "../../containers/order/PaymentForm"
 
-import { ordersFetch, orderDelete, orderPaymentFetch, paymentPost, orderPaymentDelete } from '../../actions/'
+import { orderPaymentFetch , ordersPaymentPut } from '../../actions/'
 
 class PaymentOrderComfirm extends Component {
     componentDidMount() {
@@ -16,13 +16,14 @@ class PaymentOrderComfirm extends Component {
         }
     }
 
-     onSubmit(formValues) {
-         console.log("formValues",formValues)
-         this.props.paymentPost(formValues)
-         //this.props.orderPaymentDelete(formValues.id)
-     }
+    onSubmit(formValues) {
+        formValues.status = "ชำระเงินแล้ว"
+        console.log("formValues", formValues)
+        this.props.ordersPaymentPut(formValues.id,formValues)
+        //this.props.orderPaymentDelete(formValues.id)
+    }
     render() {
-        const { formValues, match, products, productCreate, productUpdate, orderPayment, paymentPost } = this.props;
+        const { formValues, orders } = this.props;
         return (
             <div>
                 <Header menu={this.props.match.path} />
@@ -38,7 +39,7 @@ class PaymentOrderComfirm extends Component {
                         } */}
 
                     {/* <PaymentForm onPaymentSubmit={() => this.props.paymentPost(formValues)} orderPayment={orderPayment} /> */}
-                    <PaymentForm onPaymentSubmit={() => this.onSubmit(formValues)} orderPayment={orderPayment} />
+                    <PaymentForm onPaymentSubmit={() => this.onSubmit(formValues)} orders={orders} />
 
 
 
@@ -75,7 +76,7 @@ class PaymentOrderComfirm extends Component {
         )
     }
 }
-function mapStateToProps({ form, orderPayment }) {
-    return { formValues: form.paymentForm ? form.paymentForm.values : null, orderPayment }
+function mapStateToProps({ form, orders }) {
+    return { formValues: form.paymentForm ? form.paymentForm.values : null, orders }
 }
-export default connect(mapStateToProps, { orderPaymentFetch, paymentPost, orderPaymentDelete })(PaymentOrderComfirm)
+export default connect(mapStateToProps, { orderPaymentFetch , ordersPaymentPut })(PaymentOrderComfirm)

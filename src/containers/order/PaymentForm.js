@@ -16,7 +16,7 @@ class PaymentForm extends Component {
     }
     showOrders() {
         //console.log("this.props.orders", this.props.orderPayment)
-        const date = new Date(this.props.orderPayment.orderDate)
+        const date = new Date(this.props.orders.orderDate)
         return (
             // <div className="col-md-12">
 
@@ -39,7 +39,7 @@ class PaymentForm extends Component {
                 <div className="card mb-4">
                     <h5 className="text-center mt-2">วันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
                     <div className="row">
-                        {this.props.orderPayment.orders && this.props.orderPayment.orders.map(record => {
+                        {this.props.orders.orders && this.props.orders.orders.map(record => {
                             return (
                                 <div key={record.product.product_id} className="col-3 d-flex flex-column bd-highlight mb-3">
                                     <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2 mr-2 ml-2 rounded mx-auto d-block " Style="width: 100px;" alt="..." />
@@ -50,7 +50,7 @@ class PaymentForm extends Component {
                     </div>
 
 
-                    <p className="title text-right mr-2">ยอดรวม {this.props.orderPayment.totalPrice} บาท</p>
+                    <p className="title text-right mr-2">ยอดรวม {this.props.orders.totalPrice} บาท</p>
                 </div>
             </div>
 
@@ -64,13 +64,20 @@ class PaymentForm extends Component {
         return (
             <div className="container">
                 <div className="row" >
-                    {this.showOrders()}
-                    <div className = "col-12">
-                        <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
-                            {this.renderFields(orderFormField)}
-                            <button className="btn btn-block btn-danger title" type="submit" >บันทึก</button>
-                        </form>
-                    </div>
+                    {this.props.orders.saved ?
+                        <div class="alert alert-success text-center col-12" role="alert">
+                            <h5>{this.props.orders.msg}</h5> <button className="btn btn-success title">กดเพื่อติดตามสินค้า</button>
+                        </div> :
+                        <> {this.showOrders()}
+                            <div className="col-12">
+                                <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
+                                    {this.renderFields(orderFormField)}
+                                    <button className="btn btn-block btn-danger title" type="submit" >บันทึก</button>
+                                </form>
+                            </div>
+                        </>
+                    }
+
                 </div>
             </div>
         )
@@ -87,9 +94,9 @@ function validate(values) {
     })
     return errors // redux from จะจัดการโดยการส่ง error ไปให้ Field
 }
-function mapStateToProps({ orderPayment }) {
-    if (orderPayment && orderPayment.id) {
-        return { initialValues: orderPayment }
+function mapStateToProps({ orders }) {
+    if (orders && orders.id) {
+        return { initialValues: orders }
     }
     else {
         return {}
