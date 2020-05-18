@@ -12,6 +12,7 @@ class Monitor extends Component {
     }
 
     selectProduct(product) {
+        
         this.props.history.push('product/' + product.product_id)
     }
 
@@ -31,7 +32,7 @@ class Monitor extends Component {
                     </div>
                 </div>
             ))
-        );
+        ); 
     }
 
     render() {

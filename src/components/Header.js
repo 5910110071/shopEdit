@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+
 import { connect } from "react-redux"
 import { categoriesFetch, productsFetchFromCategory, productsFetch } from "../actions"
+
+import { authen } from "../FirebaseConfig";
 
 
 class Header extends Component {
@@ -15,9 +18,9 @@ class Header extends Component {
     //console.log("this.props.menu",this.props.menu.includes("paymentOrderConfirm"))
 
     this.props.categoriesFetch()
-    
 
-    
+
+
     // console.log("this.props.match", this.props.match.path)
 
   }
@@ -46,7 +49,6 @@ class Header extends Component {
   getProductFromCategory(id) {
     this.props.productsFetchFromCategory(id)
     //console.log(id)
-
   }
 
   getProducts() {
@@ -57,21 +59,26 @@ class Header extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <div className="row bg-danger">
           <div className="container">
-
-            <div className="col-md-8 text-left mt-2">
-              <h1 className="text-white">
-                <img className = "" style={{ height: 70 }} src="https://img.icons8.com/material-outlined/100/000000/online-shop-2.png" alt="" />{" "}
+            <div className="row">
+              <div className="col-md-8 text-left mt-2">
+                <h1 className="text-white">
+                  <img className="" style={{ height: 70 }} src="https://img.icons8.com/material-outlined/100/000000/online-shop-2.png" alt="" />{" "}
               eOnlineShop {" "}
-              </h1>
+                </h1>
+              </div>
+              <div className="col-md-4 text-right mt-2">
+                <h2>{this.props.user.user_name}</h2>  <button onClick={() => authen.auth().signOut()}>Sign out!</button>
+              </div>
             </div>
           </div>
+
         </div>
-        < div className="row bg-danger " style={{backgroundColor:'black'}}>
-            <div className="col-12 ">
-              <nav class="navbar navbar-expand-lg navbar-light  " >
+        < div className="row bg-danger " style={{ backgroundColor: 'black' }}>
+          <div className="col-12 ">
+            <nav class="navbar navbar-expand-lg navbar-light  " >
               <div className="container bg-danger">
                 <a class="navbar-brand title" href="#"><h4>รายการ</h4></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +88,7 @@ class Header extends Component {
                 <div class="collapse navbar-collapse  " id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto ">
                     <li class="nav-item active">
-                      
+
                       <Link className={this.props.menu === "/" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/"><h7>สินค้า</h7> <span class="sr-only">(current)</span></Link>
                     </li>
                     <li class="nav-item active">
@@ -105,7 +112,7 @@ class Header extends Component {
                       <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle title " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <h7>หมวดหมู่สินค้า</h7>
-                    </a>
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           {this.renderCategories()}
                           <div class="dropdown-divider"></div>
@@ -122,20 +129,20 @@ class Header extends Component {
                   }
 
                 </div>
-                </div>
-              </nav>
-            
-            </div>
-          
+              </div>
+            </nav>
+
+          </div>
+
         </div>
-      </>
+      </div>
 
     );
   }
 }
 
-function mapStateToProps({ products, categories }) {
-  return { products, categories }
+function mapStateToProps({ products, categories, user }) {
+  return { products, categories, user }
 }
 
 
