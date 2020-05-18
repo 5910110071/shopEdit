@@ -2,7 +2,6 @@ import './App.css'
 import React, { Component } from 'react';
 import {BrowserRouter , Route , Switch} from "react-router-dom"
 import Home from "./containers/Home"
-import Login from "./containers/Login"
 import About from "./containers/About"
 import Order from "./containers/order/Order"
 import ProductDetail from "./containers/product/ProductDetail"
@@ -19,7 +18,6 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path = "/" component = {Home} />
-        {/* <Route exact path = "/login" component = {Login} /> */}
         <Route exact path = "/about" component = {About} />
         <Route exact path = "/order" component = {Order} />
         <Route exact path = "/paymentOrder" component = {PaymentOrder} />

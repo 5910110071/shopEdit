@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import App from "./App";
+import Login from "./containers/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { connect } from "react-redux"
@@ -74,9 +75,10 @@ class Main extends Component {
         console.log("this.props.user", this.props.user)
         return (
             <div >
+                
                 {this.props.user == null ? (
-                    // <Header showCategoryAndSearch={true} menu={this.props.match.path} />
-                    <div className="container " style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }} >
+                    
+                    <div className="container " style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }} >
                         {this.state.isSignedIn ? (
                             <span>
                                 <div>Signed In!</div>
