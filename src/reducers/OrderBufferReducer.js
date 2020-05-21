@@ -6,7 +6,10 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
 
         case ORDER_ADD:
             let findOrder = state.orders.find(order => order.product.product_id == action.payload.product_id);
+
             if (findOrder) {
+                if (findOrder.confirm == true)
+                    return state
                 findOrder.quantity++;
 
             } else {
@@ -17,7 +20,7 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
 
                 }
             }
-            const totalPrice = state.totalPrice + parseInt(action.payload.product_price);
+            //const totalPrice = state.totalPrice + parseInt(action.payload.product_price);
             // state = { totalPrice: totalPrice, orders: state.orders, confirm: false, msg: '' }
             state = { totalPrice: state.totalPrice, orders: state.orders, confirm: false, msg: '' }
             console.log("Order_before", state)
@@ -26,6 +29,8 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
         case ORDER_DELETE:
             let findOrder2 = state.orders.find(order => order.product.product_id == action.payload);
             if (findOrder2) {
+                if (findOrder2.confirm == true)
+                    return state
                 findOrder2.quantity--;
                 //const totalPrice = state.totalPrice - parseInt(findOrder2.product.product_price);
                 if (findOrder2.quantity <= 0) {

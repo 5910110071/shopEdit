@@ -43,8 +43,8 @@ class RegisterForm extends Component {
     render() {
         const { onPaymentSubmit } = this.props
         return (
-            <div className="container card  mb-3">
-                <div className="row d-flex justify-content-center" >
+            <div className="container mb-3 card">
+                <div className="row d-flex justify-content-center " >
                     {/* {this.props.orders.saved ?
                         <div class="alert alert-success text-center col-12" role="alert">
                             <h5>{this.props.orders.msg}</h5> <button className="btn btn-success title">กดเพื่อติดตามสินค้า</button>
@@ -63,9 +63,10 @@ class RegisterForm extends Component {
                     } */}
 
                     <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
+                        <h2 className = "mt-3">ลงทะเบียนเข้าใช้งาน</h2>
                         {this.renderFields(RegisterFormFields)}
-                        <div className="d-flex justify-content-end">
-                            <button className="btn  btn-danger title mb-3 " type="submit" >บันทึก</button>
+                        <div className="">
+                            <button className="btn btn-block  btn-danger title mb-4 mt-4 " type="submit" >บันทึก</button>
                         </div>
                     </form>
 
@@ -93,7 +94,7 @@ function mapStateToProps({ orders }) {
     // else {
     //     return {}
     // }
-
+    return { orders }
 }
 
 RegisterForm = reduxForm({ validate, form: "registerForm" })(RegisterForm)

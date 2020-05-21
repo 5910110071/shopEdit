@@ -34,6 +34,7 @@ class Main extends Component {
             isSignedIn: false,
             user: null
         }
+
     }
     uiConfig = {
         signInFlow: "popup",
@@ -51,14 +52,18 @@ class Main extends Component {
 
     componentDidMount = () => {
 
+
         authen.auth().onAuthStateChanged(user => {
             console.log("firebase.auth().onAuthStateChanged")
             this.setState({
                 isSignedIn: !!user,
                 user: user
             })
-            if (user)
+            console.log("this.state", this.state)
+            if (user) {
+                console.log("this.props.getUser")
                 this.props.getUser(user.uid)
+            }
             else {
                 this.props.resetUser()
                 console.log("here")
@@ -67,58 +72,59 @@ class Main extends Component {
     }
 
     render() {
-        // if (this.state.user != null) {
-        //     console.log("state", this.state.user.uid)
-        // }
-
-
         console.log("this.props.user", this.props.user)
         return (
             <div >
-                
+                {/* <Login/> */}
                 {this.props.user == null ? (
-                    
-                    <div className="container " style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }} >
+
+                    <div className="container" style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }} >
+                        
                         {this.state.isSignedIn ? (
                             <span>
-                                <div>Signed In!</div>
-                                <button onClick={() => authen.auth().signOut()}>Sign out!</button>
-                                <h1>Welcome {authen.auth().currentUser.displayName}</h1>
+                                {/* <div>Signed In!</div> */}
+                                {/* <button onClick={() => authen.auth().signOut()}>Sign out!</button> */}
+                                
+
                                 <img
+                                    className=" card-img-top img-thumbnail mb-2 rounded mx-auto d-block " Style="width: 100px;"
                                     alt="profile picture"
                                     src={authen.auth().currentUser.photoURL}
                                 />
+                                <h1 className = "text-center">ยินดีต้อนรับคุณ {authen.auth().currentUser.displayName}</h1>
+
                             </span>
                         ) : (
-                                <div>
-                                    <h2 className="text-center pt-3 mb-3">กรุณาเข้าสู่ระบบ</h2>
-                                    <StyledFirebaseAuth
-                                        uiConfig={this.uiConfig}
-                                        firebaseAuth={authen.auth()}
-                                    />
+
+                                <div className="justify-content-center " >
+
+                                    <div className="card">
+                                        <h2 className="text-center pt-3 mb-3">กรุณาเข้าสู่ระบบ</h2>
+                                        <StyledFirebaseAuth
+                                            uiConfig={this.uiConfig}
+                                            firebaseAuth={authen.auth()}
+                                        />
+                                    </div>
                                 </div>
 
-                            )}
 
+                            )}
                         {(this.props.user == null && this.state.user != null) &&
                             <div>
                                 <Register user_id={this.state.user.uid} />
                             </div>
                         }
-
                     </div>
                 ) :
                     <div>
                         <App />
                     </div>}
-
             </div>
         )
     }
 }
 function mapStateToProps({ user }) {
+    //console.log("mapStateToProps",user)
     return { user }
 }
-
-
 export default connect(mapStateToProps, { getUser, resetUser })(Main);

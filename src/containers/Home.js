@@ -21,7 +21,6 @@ class Home extends Component {
   }
   
   render() { 
-    console.log("this.props.products", this.props.products)
     return (
       <div>
         <Header showCategoryAndSearch = {true} menu = {this.props.match.path} />

@@ -13,61 +13,89 @@ export const ordersPost = ({ orders, totalPrice }) => { // ตอนนี้ท
  */
 export const ordersWaitPaymentFetch = (id) => { // ตอนนี้ทุก order จะส่งมาที่เดียวกันเพราะยังมีการการ login เพื่อระบุตัวตน user
     return dispatch => {
-        axios.get("http://localhost:3002/orders").then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+        axios.get("http://localhost:5000/orders/" + id).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
             res => {
-                dispatch({ type: ORDERS_WAIT_PAYMENT, payload: {data : res.data , id : id} })
+                dispatch({ type: ORDERS_WAIT_PAYMENT, payload: res.data })
             }
         )
     }
 }
 
 export const ordersPaidFetch = (id) => { // ตอนนี้ทุก order จะส่งมาที่เดียวกันเพราะยังมีการการ login เพื่อระบุตัวตน user
+    console.log("id", id)
+    if (id == "PoK3aDRlXeYhtHWBg1sMYSZIOHo1") {
+        return dispatch => {
+            axios.get("http://localhost:5000/orders/").then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+                res => {
+                    dispatch({ type: ORDERS_PAID, payload: res.data })
+                }
+            )
+        }
+    }
+    else {
+        return dispatch => {
+            axios.get("http://localhost:5000/orders/" + id).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+                res => {
+                    dispatch({ type: ORDERS_PAID, payload: res.data })
+                }
+            )
+        }
+    }
+
+}
+
+export const orderPaidDelete = (id, uid) => {
     return dispatch => {
-        axios.get("http://localhost:3002/orders").then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+        axios.delete("http://localhost:5000/order/" + id).then(
             res => {
-                dispatch({ type: ORDERS_PAID, payload: {data : res.data , id : id} })
+                axios.get("http://localhost:5000/orders/" + uid).then(
+                    res => {
+                        dispatch({ type: ORDERS_PAID_DELETE, payload: res.data })
+                    }
+                )
             }
         )
     }
 }
 
-export const orderPaidDelete = (id,uid) => {
-    return dispatch => {
-        axios.delete("http://localhost:3002/orders/" + id).then(
-            res => { 
-                axios.get("http://localhost:3002/orders").then(
-                    res => {
-                        dispatch({ type: ORDERS_PAID_DELETE, payload: {data : res.data , id : uid} }) 
-                    } 
-                ) 
-            } 
-        )
-    }
-}
-
 export const ordersPaymentPut = (id, values) => {
+    console.log("id", id)
     return dispatch => {
-        axios.put("http://localhost:3002/orders/" + id, values).then(res => {
+        axios.put("http://localhost:5000/order/" + id, values).then(res => {
             dispatch({ type: ORDERS_PAYMENT });
         })
     }
 }
 
-export const ordersPaymentStatusPut = (id, values ,uid) => {
-    return dispatch => {
-        axios.put("http://localhost:3002/orders/" + id, values).then(res => {
-            axios.get("http://localhost:3002/orders").then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
-                res => {
-                    dispatch({ type: ORDERS_PAID, payload: {data : res.data , id : uid} })
-                }
-            )
-        })
+export const ordersPaymentStatusPut = (id, values, uid) => {
+    if (uid == "PoK3aDRlXeYhtHWBg1sMYSZIOHo1") {
+        return dispatch => {
+            axios.put("http://localhost:5000/order/" + id, values).then(res => {
+                axios.get("http://localhost:5000/orders/").then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+                    res => {
+                        dispatch({ type: ORDERS_PAID, payload: res.data })
+                    }
+                )
+            })
+        }
     }
+    else {
+        return dispatch => {
+            axios.put("http://localhost:5000/order/" + id, values).then(res => {
+                axios.get("http://localhost:5000/orders/" + uid).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+                    res => {
+                        dispatch({ type: ORDERS_PAID, payload: res.data })
+                    }
+                )
+            })
+        }
+    }
+
 }
 
 export const orderPaymentFetch = (id) => { // ตอนนี้ทุก order จะส่งมาที่เดียวกันเพราะยังมีการการ login เพื่อระบุตัวตน user
     return dispatch => {
-        axios.get("http://localhost:3002/orders/" + id).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+        axios.get("http://localhost:5000/order/" + id).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
             res => {
                 dispatch({ type: ORDER_PAYMENT_FETCH, payload: res.data })
             }

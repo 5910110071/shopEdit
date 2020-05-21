@@ -11,7 +11,7 @@ export default function (state = null , action) {
             return action.payload
         case GET_USER:
             return action.payload
-        case RESET_USER:
+        case RESET_USER: 
             
             return null
         default: return state

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 
 import { connect } from "react-redux"
-import { categoriesFetch, productsFetchFromCategory, productsFetch } from "../actions"
+import { categoriesFetch, productsFetchFromCategory, productsFetch ,getUser  } from "../actions"
 
 import { authen } from "../FirebaseConfig";
 
@@ -19,13 +19,17 @@ class Header extends Component {
 
     this.props.categoriesFetch()
 
-
+    // console.log("this.props.getUser(user.uid)",this.props.user)
+    // this.props.getUser2(this.props.user._id)
 
     // console.log("this.props.match", this.props.match.path)
 
   }
 
-  componentDidUpdate() { }
+  componentDidUpdate() { 
+
+
+  }
 
   // componentWillUnmount() {
   //   clearInterval(this.timerID);
@@ -63,14 +67,14 @@ class Header extends Component {
         <div className="row bg-danger">
           <div className="container">
             <div className="row">
-              <div className="col-md-8 text-left mt-2">
+              <div className="col-md-7 text-left mt-2">
                 <h1 className="text-white">
                   <img className="" style={{ height: 70 }} src="https://img.icons8.com/material-outlined/100/000000/online-shop-2.png" alt="" />{" "}
               eOnlineShop {" "}
                 </h1>
-              </div>
-              <div className="col-md-4 text-right mt-2">
-                <h2>{this.props.user.user_name}</h2>  <button onClick={() => authen.auth().signOut()}>Sign out!</button>
+              </div >
+              <div className="col-md-5 text-right  mt-2 d-flex justify-content-end ">
+              <h3 className = "text-white mt-2">{this.props.user.user_name}</h3><div className = "btn" onClick={() => authen.auth().signOut()}><h5 className = "text-black btn-block text-right btn">ออกจากระบบ</h5></div>
               </div>
             </div>
           </div>
@@ -92,7 +96,7 @@ class Header extends Component {
                       <Link className={this.props.menu === "/" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/"><h7>สินค้า</h7> <span class="sr-only">(current)</span></Link>
                     </li>
                     <li class="nav-item active">
-                      <Link className={this.props.menu === "/order" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/order"><h7>ตะกร้า</h7> <span class="sr-only">(current)</span></Link>
+                      <Link className={this.props.menu === "/basket" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/basket"><h7>ตะกร้า</h7> <span class="sr-only">(current)</span></Link>
                     </li>
 
 
@@ -101,11 +105,11 @@ class Header extends Component {
                   </li>  */}
 
                     <li class="nav-item active">
-                      <Link className={(this.props.menu === "/paymentOrder" || this.props.menu.includes("paymentOrderConfirm")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paymentOrder"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
+                      <Link className={(this.props.menu === "/waitPayment" || this.props.menu.includes("paymentNotification")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/waitPayment"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
                     </li>
 
                     <li class="nav-item active">
-                      <Link className={this.props.menu === "/paymentMornitor" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paymentMornitor"><h7>ตรวจสอบรายการสั่งซื้อ</h7><span class="sr-only">(current)</span></Link>
+                      <Link className={this.props.menu === "/paid" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paid"><h7>ตรวจสอบรายการสั่งซื้อ</h7><span class="sr-only">(current)</span></Link>
                     </li>
 
                     {this.props.showCategoryAndSearch &&
@@ -146,4 +150,4 @@ function mapStateToProps({ products, categories, user }) {
 }
 
 
-export default connect(mapStateToProps, { categoriesFetch, productsFetchFromCategory, productsFetch })(Header);
+export default connect(mapStateToProps, { categoriesFetch, productsFetchFromCategory, productsFetch , getUser })(Header);

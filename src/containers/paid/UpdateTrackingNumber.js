@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import UpdateTrackingNumberForm from "../../containers/order/UpdateTrackingNumberForm"
+import UpdateTrackingNumberForm from "../../containers/paid/UpdateTrackingNumberForm"
 
 import { orderPaymentFetch, ordersPaymentPut } from '../../actions/'
 
@@ -16,10 +16,8 @@ class UpdateTrackingNumber extends Component {
     }
 
     onSubmit(formValues) {
-        //formValues.status = "ชำระเงินแล้ว"
         console.log("formValues", formValues)
-        this.props.ordersPaymentPut(formValues.id, formValues)
-        //this.props.orderPaymentDelete(formValues.id)
+        this.props.ordersPaymentPut(formValues._id, formValues)
     }
     render() {
         const { formValues, orders } = this.props;
@@ -27,13 +25,9 @@ class UpdateTrackingNumber extends Component {
             <div>
                 <Header menu={this.props.match.path} />
                 <div className="container" style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }}>
-
-
                     <h2 className="text-center pt-3" >เพิ่มหมายเลขติดตามสินค้า</h2>
                     <UpdateTrackingNumberForm onPaymentSubmit={() => this.onSubmit(formValues)} orders={orders} />
-
                 </div>
-
                 <Footer />
             </div>
         )

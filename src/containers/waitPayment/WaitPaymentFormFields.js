@@ -1,4 +1,4 @@
-export const orderFormField = [
+export const WaitPaymentFormFields = [
     { label: "ชือ-นามสกุล" ,name: "Name", type: "text",required : true },
     { label: "ที่อยู่" ,name: "Address", type: "text",required : true },
     { label: "เบอร์โทร" ,name: "Tel", type: "text",required : true }
