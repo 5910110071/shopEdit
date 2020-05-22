@@ -37,3 +37,6 @@ export const PAYMENT_FETCH = "payment_fetch"
 export const SET_USER = "set_user"
 export const GET_USER = "get_user"
 export const RESET_USER = "reset_user"
+
+export const COMMENT_POST = "comment_post"
+export const COMMENT_FETCH = "comment_fetch"

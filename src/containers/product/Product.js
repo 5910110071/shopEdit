@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 
 import ShowDetail from "./ShowDetail"
 import UserComment from "./UserComment"
+import Comment from "./Comment"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 
@@ -75,7 +76,9 @@ class Product extends Component {
                         onAddOrder={this.addOrder}
                         onOrderConfirm={this.props.orderConfirm}
                     />
-                    <UserComment />
+                    <UserComment product_id = {this.props.match.params.id} />
+                    <Comment product_id = {this.props.match.params.id} />
+
 
                 </div>>
 

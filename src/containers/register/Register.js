@@ -13,6 +13,7 @@ class Register extends Component {
     onSubmit(formValues) {
         formValues.status = "ลงทะเบียนแล้ว"
         formValues.id = this.props.user_id
+        formValues.user_image = this.props.user_image
         this.props.setUser(formValues)
     }
     render() {

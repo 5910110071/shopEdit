@@ -111,7 +111,7 @@ class Main extends Component {
                             )}
                         {(this.props.user == null && this.state.user != null) &&
                             <div>
-                                <Register user_id={this.state.user.uid} />
+                                <Register user_id={this.state.user.uid} user_image = {this.state.user.photoURL} />
                             </div>
                         }
                     </div>
