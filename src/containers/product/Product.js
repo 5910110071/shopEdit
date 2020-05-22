@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { productFetch, orderAdd, orderDelete, orderConfirm } from "../../actions"
+import { productFetch, orderAdd, orderDelete, orderConfirm  } from "../../actions"
 import { connect } from "react-redux"
 
 import ShowDetail from "./ShowDetail"
@@ -65,6 +65,7 @@ class Product extends Component {
     }
 
     render() {
+        console.log("testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
         return (
             <div>
                 <Header menu={this.props.match.path} />
@@ -76,21 +77,18 @@ class Product extends Component {
                         onAddOrder={this.addOrder}
                         onOrderConfirm={this.props.orderConfirm}
                     />
-                    <UserComment product_id = {this.props.match.params.id} />
+                    <UserComment product_id = {this.props.match.params.id} comments = {this.props.comments} />
                     <Comment product_id = {this.props.match.params.id} />
-
-
                 </div>>
-
                 <Footer />
             </div>
         )
     }
 }
 
-function mapStateToProps({ products, orderBuffer }) {
-    console.log("products", products)
-    return { products, orderBuffer }
+function mapStateToProps({ products, orderBuffer   }) {
+    console.log("products", products )
+    return { products, orderBuffer  }
 }
 
-export default connect(mapStateToProps, { productFetch, orderAdd, orderDelete, orderConfirm })(Product)
+export default connect(mapStateToProps, { productFetch, orderAdd, orderDelete, orderConfirm  })(Product)

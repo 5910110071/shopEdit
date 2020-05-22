@@ -40,3 +40,6 @@ export const RESET_USER = "reset_user"
 
 export const COMMENT_POST = "comment_post"
 export const COMMENT_FETCH = "comment_fetch"
+
+
+export const RATING_FETCH = "rating_fetch"

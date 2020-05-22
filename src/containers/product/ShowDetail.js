@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 class ShowDetail extends Component {
     constructor(props) {
@@ -7,9 +11,9 @@ class ShowDetail extends Component {
     }
     render() {
 
-        const { products, onCheckQuantity , onGetQuantity , onDelOrder , onAddOrder , onOrderConfirm } = this.props
-        
-        console.log("this.props.products", products)
+        const { products, onCheckQuantity, onGetQuantity, onDelOrder, onAddOrder, onOrderConfirm } = this.props
+
+        console.log("this.props.rating.average", this.props.rating.average)
         if (products != null) {
             onCheckQuantity(products)
         }
@@ -48,6 +52,10 @@ class ShowDetail extends Component {
                             <div className=" btn d-flex justify-content-end bd-highlight mb-3 mr-5" onClick={() => this.props.history.push('/basket/')}>
                                 <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-1-9/48/2-512.png" class="mt-2" Style="width: 50px;" alt="..." />
                             </div>
+                            <Box component="fieldset" mb={3} borderColor="transparent">
+                                <Typography component="legend">Read only</Typography>
+                                <Rating name="read-only" value={this.props.rating.average} readOnly />
+                            </Box>
                         </div>
                     </div>
                 </div>
@@ -55,4 +63,10 @@ class ShowDetail extends Component {
         )
     }
 }
-export default withRouter(ShowDetail)
+
+
+
+function mapStateToProps({ rating }) {
+    return { rating }
+}
+export default withRouter(connect(mapStateToProps)(ShowDetail))

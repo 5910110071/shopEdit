@@ -6,6 +6,7 @@ import CategoryReducer from "./CategoryReducer"
 import OrderBufferReducer from "./OrderBufferReducer"
 import UserReducer from "./UserReducer"
 import CommentReducer from "./CommentReducer"
+import Rating from "./RatingReducer"
 
 const rootRuducer  = combineReducers({
     orders : OrderReducer,
@@ -14,6 +15,7 @@ const rootRuducer  = combineReducers({
     orderBuffer : OrderBufferReducer,
     user : UserReducer,
     comments : CommentReducer,
+    rating : Rating,
     form : reduxForm
 })
 export default rootRuducer
