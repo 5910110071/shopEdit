@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import { reduxForm, Field } from "redux-form"
 import FormField from "../../components/FormField"
 import { CommentFormFields } from "./CommentFormFields"
+
+
 class RegisterForm extends Component {
 
     renderFields(CommentFormFields) {
@@ -18,15 +20,15 @@ class RegisterForm extends Component {
         const { onCommentSubmit } = this.props
         return (
             <div className="container mb-3">
-                <div className="row d-flex justify-content-center " >
+               
                     <form onSubmit={this.props.handleSubmit(onCommentSubmit)}>
-                        <h2 className = "mt-3">แสดงความคิดเห็น</h2>
+                    
                         {this.renderFields(CommentFormFields)}
-                        <div className="">
-                            <button className="btn btn-block  btn-danger title mb-4 mt-4 " type="submit" >บันทึก</button>
+                        <div className="d-flex flex-row-reverse bd-highlight">
+                            <button className="btn btn-danger title mb-4 mt-4  " type="submit" >บันทึก</button>
                         </div>
                     </form>
-                </div>
+               
             </div>
         )
     }

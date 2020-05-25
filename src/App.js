@@ -27,7 +27,7 @@ class App extends Component {
         <Route exact path = "/paymentNotification/:id" component = {PaymentNotification} />
         <Route exact path = "/UpdateTrackingNumber/:id" component = {UpdateTrackingNumber} />
         <Route exact path = "/paid" component = {Paid} />
-        <Route exact path="/product/:id" component={Product}/>
+        <Route exact path="/product/:id/:id2" component={Product}/>
         <Route component={NotFound}/>
       </Switch>
     )

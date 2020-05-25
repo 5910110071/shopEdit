@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 
 import { connect } from "react-redux"
-import { categoriesFetch, productsFetchFromCategory, productsFetch ,getUser  } from "../actions"
+import { categoriesFetch, productsFetchFromCategory, productsFetch, getUser } from "../actions"
 
 import { authen } from "../FirebaseConfig";
 
@@ -26,7 +26,7 @@ class Header extends Component {
 
   }
 
-  componentDidUpdate() { 
+  componentDidUpdate() {
 
 
   }
@@ -74,7 +74,7 @@ class Header extends Component {
                 </h1>
               </div >
               <div className="col-md-5 text-right  mt-2 d-flex justify-content-end ">
-              <h3 className = "text-white mt-2">{this.props.user.user_name}</h3><div className = "btn" onClick={() => authen.auth().signOut()}><h5 className = "text-black btn-block text-right btn">ออกจากระบบ</h5></div>
+                <h3 className="text-white mt-2">{this.props.user.user_name}</h3><div className="btn" onClick={() => authen.auth().signOut()}><h5 className="text-black btn-block text-right btn">ออกจากระบบ</h5></div>
               </div>
             </div>
           </div>
@@ -107,6 +107,14 @@ class Header extends Component {
                     <li class="nav-item active">
                       <Link className={(this.props.menu === "/waitPayment" || this.props.menu.includes("paymentNotification")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/waitPayment"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
                     </li>
+
+                    {/* <li class="nav-item active">
+                      <Link className={(this.props.menu === "/waitPayment" ) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/waitPayment"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
+                    </li> */}
+
+                    {/* <li class="nav-item active">
+                      <Link className={(this.props.menu.includes("paymentNotification")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/waitPayment"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
+                    </li> */}
 
                     <li class="nav-item active">
                       <Link className={this.props.menu === "/paid" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paid"><h7>ตรวจสอบรายการสั่งซื้อ</h7><span class="sr-only">(current)</span></Link>
@@ -150,4 +158,4 @@ function mapStateToProps({ products, categories, user }) {
 }
 
 
-export default connect(mapStateToProps, { categoriesFetch, productsFetchFromCategory, productsFetch , getUser })(Header);
+export default connect(mapStateToProps, { categoriesFetch, productsFetchFromCategory, productsFetch, getUser })(Header);

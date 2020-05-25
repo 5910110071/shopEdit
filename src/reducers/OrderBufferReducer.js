@@ -66,7 +66,7 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
             }
             return state
         case ORDER_CONFIRM:
-            let findOrder4 = state.orders.find(order => order.product.product_id == action.payload.product_id);
+            let findOrder4 = state.orders.find(order => order.product.product_id == action.payload.product.product_id);
 
 
             //let resultOrder = state.orders.filter(order => order.product.product_id != action.payload.product_id);
@@ -81,12 +81,14 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
             //     state.totalPrice = state.totalPrice - action.payload.product_price * findOrder4.quantity
 
             if (!findOrder4.confirm) {
-                state.totalPrice = state.totalPrice + action.payload.product_price * findOrder4.quantity
+                state.totalPrice = state.totalPrice + action.payload.product.product_price * findOrder4.quantity
                 findOrder4.confirm = true
+                
+                findOrder4.saleman_id = action.payload.saleman_id
             }
             else {
                 console.log("findOrder4.preQuantity", findOrder4.preQuantity)
-                state.totalPrice = state.totalPrice - action.payload.product_price * findOrder4.preQuantity + action.payload.product_price * findOrder4.quantity
+                state.totalPrice = state.totalPrice - action.payload.product.product_price * findOrder4.preQuantity + action.payload.product.product_price * findOrder4.quantity
                 //state.totalPrice = state.totalPrice + action.payload.product_price * findOrder4.quantity
 
             }

@@ -43,3 +43,4 @@ export const COMMENT_FETCH = "comment_fetch"
 
 
 export const RATING_FETCH = "rating_fetch"
+export const RATING_FETCH2 = "rating_fetch2"

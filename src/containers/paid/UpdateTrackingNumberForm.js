@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { reduxForm, Field } from "redux-form"
 import FormField from "../../components/FormField"
 import { UpdateTrackNumberFormFields } from "./UpdateTrackNumberFormFields"
+import { Link } from 'react-router-dom'
 class UpdateTrackingNumberForm extends Component {
 
     renderFields(UpdateTrackNumberFormFields) {
@@ -43,14 +44,15 @@ class UpdateTrackingNumberForm extends Component {
     render() {
         const { onPaymentSubmit } = this.props
         return (
-            <div className="container card  mb-3 ">
-                <div className="row d-flex justify-content-center" >
-                    {this.props.orders.saved ?
+            <div>
+                {this.props.orders.saved ?
+                    <div className="container mt-3">
                         <div class="alert alert-success text-center col-12" role="alert">
-                            <h5>{this.props.orders.msg}</h5> <button className="btn btn-success title">กดเพื่อติดตามสินค้า</button>
-                        </div> :
-                        <> {this.showOrders()}
-
+                            <h4 className="title col-12 text-right text-center">เพิ่มหมายเลขติดตามสินค้าแล้ว <Link to="/paid">ติดตามรายการสั่งซื้อ</Link></h4>
+                        </div>
+                    </div> :
+                    <div className="container card  mb-3 ">
+                        <div className="row d-flex justify-content-center" > {this.showOrders()}
                             <div className="col-6 ">
                                 <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
                                     {this.renderFields(UpdateTrackNumberFormFields)}
@@ -59,11 +61,13 @@ class UpdateTrackingNumberForm extends Component {
                                     </div>
                                 </form>
                             </div>
-                        </>
-                    }
-
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
+
+
+
         )
     }
 }

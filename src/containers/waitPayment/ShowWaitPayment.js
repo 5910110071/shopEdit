@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom"
+import { Link } from 'react-router-dom'
+
 class ShowWaitPayment extends Component {
     constructor(props) {
         super(props)
     }
     showOrders() {
-        const {orders , onSubmit } = this.props
+        const { orders, onSubmit } = this.props
         return orders && Array.isArray(orders) && orders.map(order => {
 
             const date = new Date(order.orderDate)
@@ -45,12 +47,15 @@ class ShowWaitPayment extends Component {
         const { orders } = this.props
         return (
             <div className="container" style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }}>
+                <h2 className="text-center pt-3 mb-3">รายการที่ยังไม่ชำระเงิน</h2>
                 {orders.length == 0 ?
-                    <div class="alert alert-success text-center col-12" role="alert">
-                        <h5>{this.props.orders.msg}</h5> <button className="btn btn-success title">กดเพื่อติดตามสินค้า</button>
+                    <div className="container mt-3">
+                        
+                        <div class="alert alert-primary text-center " role="alert">
+                            <h4 className="title col-12 text-right text-center">ไม่มีรายการที่ต้องชำระเงิน <Link to="/">เลือกสินค้า</Link></h4>
+                        </div>
                     </div> :
                     <>
-                        <h2 className="text-center pt-3 mb-3">รายการที่ยังไม่ชำระเงิน</h2>
                         <div className="row">
                             {this.showOrders()}
                         </div>

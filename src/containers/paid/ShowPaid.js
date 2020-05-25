@@ -7,7 +7,7 @@ class PaymentMornitor extends Component {
     }
 
     showOrders() {
-        const { orders , onChangeStatus   } = this.props
+        const { orders, onChangeStatus } = this.props
         return orders && Array.isArray(orders) && orders.map(order => {
             const date = new Date(order.orderDate)
             return (
@@ -28,20 +28,35 @@ class PaymentMornitor extends Component {
                             })}
                         </div>
                         <h5 className="title text-center text-danger mb-3">ยอดรวม {order.totalPrice} บาท </h5>
+
                         <hr />
-                        <h5 className="text-center mt-2 ">ข้อมูลการชำระเงิน</h5>
-                        <div className="ml-2 text-center">
-                            <p>ชื่อ : {order.Name}</p>
-                            <p>ที่อยู่ : {order.Address} </p>
-                            <p>เบอร์โทร์ : {order.Tel}</p>
-                            <p>หลักฐานการโอน : <img src ={order.Silp}/></p>
-                            <p>สถานะ : {order.status}
-                            </p>
-                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order._id)}>
-                                เพิ่มหมายเลขติดตามสินค้า
+                        <h5 className="text-right mt-2 text-center">ข้อมูลการชำระเงิน</h5>
+
+                        <div className="row">
+                            
+                            <div className="col-6">
+                                <div className="ml-2 text-right">
+                                    <p>ชื่อ : {order.Name}</p>
+                                    <p>ที่อยู่ : {order.Address} </p>
+                                    <p>เบอร์โทร์ : {order.Tel}</p>
+                                    {/* <p>หลักฐานการโอน : <img src={order.Silp} Style="width: 200px;" /></p> */}
+                                    <p>สถานะ : {order.status}
+                                    </p>
+                                    <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order._id)}>
+                                        เพิ่มหมายเลขติดตามสินค้า
                                 </button>
-                            <p>หมายเลขติดตามสินค้า : {order.TrackingNumber} </p>
+                                    <p>หมายเลขติดตามสินค้า : {order.TrackingNumber} </p>
+                                </div>
+                            </div>
+
+                            <div className="col-6  mb-3 mt-2">
+                                {/* <p>หลักฐานการโอน : </p> */}
+                                <img src={order.Silp} Style="width: 500px;" />
+                            </div>
+
+
                         </div>
+
                         <div class="btn-group dropup mb-2 ">
                             <button type="button" class={order.status == "ข้อมูลการชำระเงินถูกต้อง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "ข้อมูลการชำระเงินถูกต้อง")}>ข้อมูลการชำระเงินถูกต้อง</button>
                             <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "สินค้ากำลังจัดส่ง")}>สินค้ากำลังจัดส่ง</button>
@@ -54,13 +69,13 @@ class PaymentMornitor extends Component {
     }
     render() {
         return (
-           
-                <div className="container" style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }}>
-                    <h2 className="text-center pt-3 mb-3">ตรวจสอบรายการสั่งซื้อ</h2>
-                    <div className="row">
-                        {this.showOrders()}
-                    </div>
+
+            <div className="container" style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }}>
+                <h2 className="text-center pt-3 mb-3">ตรวจสอบรายการสั่งซื้อ</h2>
+                <div className="row">
+                    {this.showOrders()}
                 </div>
+            </div>
         )
     }
 }

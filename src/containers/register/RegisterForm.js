@@ -77,7 +77,7 @@ class RegisterForm extends Component {
 }
 
 function validate(values) {
-    console.log("values", values)
+    //console.log("values", values)
     const errors = {};
     RegisterFormFields.forEach(({ name, required }) => {
         if (!values[name] && required) {

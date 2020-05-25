@@ -54,25 +54,25 @@ class Main extends Component {
 
 
         authen.auth().onAuthStateChanged(user => {
-            console.log("firebase.auth().onAuthStateChanged")
+            //console.log("firebase.auth().onAuthStateChanged")
             this.setState({
                 isSignedIn: !!user,
                 user: user
             })
-            console.log("this.state", this.state)
+            //console.log("this.state", this.state)
             if (user) {
-                console.log("this.props.getUser")
+                //console.log("this.props.getUser")
                 this.props.getUser(user.uid)
             }
             else {
                 this.props.resetUser()
-                console.log("here")
+                //console.log("here")
             }
         })
     }
 
     render() {
-        console.log("this.props.user", this.props.user)
+        //console.log("this.props.user", this.props.user)
         return (
             <div >
                 {/* <Login/> */}

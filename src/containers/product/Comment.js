@@ -3,23 +3,36 @@ import { connect } from "react-redux"
 
 import CommentForm from "../../containers/product/CommentForm"
 
-import { commentPost ,ratingFetch } from '../../actions'
+import { commentPost, ratingFetch } from '../../actions'
 
-import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+// import Rating from '@material-ui/lab/Rating';
+// import Typography from '@material-ui/core/Typography';
+// import Box from '@material-ui/core/Box';
+
 
 import axios from 'axios'
+
+import StarRatingComponent from 'react-star-rating-component';
 
 class Comment extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: 0
+            rating: 0,
+            saved: false
         }
     }
     componentDidMount() {
 
+    }
+
+    onStarClick(nextValue, prevValue, name) {
+        console.log("prevValue", prevValue)
+        console.log("nextValue", nextValue)
+        if (nextValue == prevValue && nextValue == 1)
+            this.setState({ rating: 0 });
+        else
+            this.setState({ rating: nextValue });
     }
 
     onSubmit(formValues) {
@@ -27,9 +40,9 @@ class Comment extends Component {
         formValues.user_image = this.props.user.user_image
         formValues.user_name = this.props.user.user_name
         formValues.product_id = this.props.product_id
-        formValues.rating = this.state.value
+        formValues.rating = this.state.rating
 
-        this.props.ratingFetch(this.props.product_id,formValues)
+        this.props.ratingFetch(this.props.product_id, formValues)
 
         // axios.get("http://localhost:5000/rating/" + this.props.product_id).then(
         //     res => {
@@ -60,25 +73,47 @@ class Comment extends Component {
         // )
 
         this.props.commentPost(formValues, this.props.product_id)
-        
-        
+
+
         this.setState({
-            value: 0
+            rating: 0,
+            saved: true
         });
+
     }
     render() {
-        console.log("this.state.value", this.state.value)
+
+        const { rating } = this.state;
+
+        console.log("this.state.rating", this.state.rating)
         const { formValues } = this.props;
         return (
-            <div>
-                <div className="container">
-                    <div className="card">
-                        <div className="row">
-                            <div className="col-8">
-                                <CommentForm onCommentSubmit={() => this.onSubmit(formValues)} />
+
+            <div className="container">
+                <h2 className="mt-3 text-center">แสดงความคิดเห็น</h2>
+                <div className="card">
+                    <div className="row">
+                        <div className="col-12 text-center mt-3">
+                            {this.state.saved &&
+                                <div className="container">
+                                    <div class="alert alert-success text-center " role="alert">
+                                        <h4 className="title col-12 text-right text-center">บันทึกความคิดเห็นแล้ว</h4>
+                                    </div>
+                                </div>
+                            }
+                            <label className="mt-3 text-center " className="title" >ระดับคะแนน</label>
+                            <div>
+                                < StarRatingComponent
+                                    name="rate1"
+                                    starCount={5}
+                                    value={rating}
+                                    renderStarIcon={() => <h1>★</h1>}
+                                    onStarClick={this.onStarClick.bind(this)}
+                                />
                             </div>
-                            <div className="col-4" >
-                                <Box component="fieldset" mb={3} borderColor="transparent">
+                        </div>
+                        <div className="col-12" >
+                            {/* <Box component="fieldset" mb={3} borderColor="transparent">
                                     <Typography component="legend">Controlled</Typography>
                                     <Rating
                                         name="simple-controlled"
@@ -89,12 +124,10 @@ class Comment extends Component {
                                             });
                                         }}
                                     />
-                                </Box>
-                            </div>
+                                </Box> */}
+                            <CommentForm onCommentSubmit={() => this.onSubmit(formValues)} />
                         </div>
-
                     </div>
-
                 </div>
             </div>
         )
@@ -103,4 +136,4 @@ class Comment extends Component {
 function mapStateToProps({ form, user }) {
     return { formValues: form.commentForm ? form.commentForm.values : null, user }
 }
-export default connect(mapStateToProps, { commentPost ,ratingFetch })(Comment)
+export default connect(mapStateToProps, { commentPost, ratingFetch })(Comment)

@@ -26,9 +26,10 @@ export const orderCancel = product => {
     }
 }
 
-export const orderConfirm = product => {
+export const orderConfirm = (product,saleman_id) => {
+
     return dispatch => {
-        dispatch({ type: ORDER_CONFIRM, payload: product })
+        dispatch({ type: ORDER_CONFIRM, payload: {product,saleman_id} })
     }
 }
 

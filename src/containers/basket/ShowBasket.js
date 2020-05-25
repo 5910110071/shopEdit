@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+
 
 class Basket extends Component {
     constructor(props) {
@@ -10,9 +12,8 @@ class Basket extends Component {
         const { onCancelOrder } = this.props
         if (this.props.orderBuffer.totalPrice == 0) {
             return <div className="container">
-                <div class="alert alert-danger text-center " role="alert">
-                    <h4 className="title col-12 text-right text-center">ไม่มีสินค้าในตะกร้า</h4>
-                    <button className="btn btn-success title">ไปยังหน้าสินค้า</button>
+                <div class="alert alert-primary text-center " role="alert">
+                    <h4 className="title col-12 text-right text-center">ไม่มีสินค้าในตระกร้า <Link to="/">เลือกสินค้า</Link></h4>
                 </div>
             </div>
         } else {
@@ -46,9 +47,11 @@ class Basket extends Component {
             <div className="container " style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }} >
                 <h2 className="text-center pt-3 mb-3">สินค้าในตะกร้า</h2>
                 {orderBuffer.saved &&
-                    <div class="alert alert-success text-center" role="alert">
-                        <h5>{orderBuffer.msg}</h5> <button className="btn btn-success title">กดเพื่อแจ้งชำระเงิน</button>
+                    
+                    <div class="alert alert-success text-center " role="alert">
+                        <h4 className="title col-12 text-right text-center">บันทึกรายการสั่งซื้อแล้ว <Link to="/waitPayment">แจ้งชำระเงิน</Link></h4>
                     </div>
+                
                 }
 
                 <div class="row d-flex justify-content-center">

@@ -8,6 +8,9 @@ import UploadFile from "../../components/UploadFile"
 
 import { WaitPaymentFormFields } from "./WaitPaymentFormFields"
 
+import { Link } from 'react-router-dom'
+
+
 class WaitPaymentForm extends Component {
 
     renderFields(WaitPaymentFormFields) {
@@ -45,29 +48,35 @@ class WaitPaymentForm extends Component {
         )
     }
     render() {
-        
-        const { onPaymentSubmit , orders } = this.props
+
+        const { onPaymentSubmit, orders } = this.props
         return (
-            <div className="container card  mb-3">
-                <div className="row d-flex justify-content-center" >
-                    {orders.saved ?
-                        <div class="alert alert-success text-center col-12" role="alert">
-                            <h5>{orders.msg}</h5> <button className="btn btn-success title">กดเพื่อติดตามสินค้า</button>
-                        </div> :
-                        <> {this.showOrders()}
-                            <div className="col-6 ">
-                                <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
-                                    {this.renderFields(WaitPaymentFormFields)}
-                                    <Field component={UploadFile} label = "อัพโหลดหลักฐานการชำระเงิน" name='image' accept='.png , .jpg'/>
-                                    <div className="d-flex justify-content-end">
-                                        <button className="btn  btn-danger title mb-3 " type="submit" required ="true" >บันทึก</button>
-                                    </div>
-                                </form>
+            <div>
+                {
+                    orders.saved ?
+                        <div className="container mt-3">
+                            <div class="alert alert-success text-center col-12" role="alert">
+                                <h4 className="title col-12 text-right text-center">แจ้งชำระเงินแล้ว <Link to="/paid">ติดตามรายการสั่งซื้อ</Link></h4>
                             </div>
-                        </>
-                    }
-                </div>
+                        </div> :
+                        <div className="container card  mb-3">
+                            <div className="row d-flex justify-content-center" >
+                                {this.showOrders()}
+                                <div className="col-6 ">
+                                    <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
+                                        {this.renderFields(WaitPaymentFormFields)}
+                                        <Field component={UploadFile} label="อัพโหลดหลักฐานการชำระเงิน" name='image' accept='.png , .jpg' />
+                                        <div className="d-flex justify-content-end">
+                                            <button className="btn  btn-danger title mb-3 " type="submit" required="true" >บันทึก</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                }
             </div>
+
+
         )
     }
 }
@@ -82,7 +91,7 @@ function validate(values) {
     })
     return errors // redux from จะจัดการโดยการส่ง error ไปให้ Field
 }
-function mapStateToProps({ orders }) {
+function mapStateToProps({ orders , user }) {
     if (orders && orders._id) {
         return { initialValues: orders }
     }
