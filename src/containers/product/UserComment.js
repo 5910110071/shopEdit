@@ -28,7 +28,7 @@ class UserComment extends Component {
                         <div class="card mb-3" Style="max-width: 540px;">
                             <div class="row no-gutters">
                                 <div class="col-md-3">
-                                    <img src={comment.user_image} class="card-img mt-3 ml-3" alt="..." Style="width: 120px;" />
+                                    <img src={comment.user_image} class="card-img mt-3 ml-3" alt="..." Style="width: 70px;" />
                                 </div>
                                 <div class="col-md-9">
                                     <div class="card-body">

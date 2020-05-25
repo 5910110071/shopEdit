@@ -33,18 +33,21 @@ class PaymentMornitor extends Component {
                         <h5 className="text-right mt-2 text-center">ข้อมูลการชำระเงิน</h5>
 
                         <div className="row">
-                            
+
                             <div className="col-6">
                                 <div className="ml-2 text-right">
-                                    <p>ชื่อ : {order.Name}</p>
-                                    <p>ที่อยู่ : {order.Address} </p>
-                                    <p>เบอร์โทร์ : {order.Tel}</p>
+                                    <p>ชื่อ : {order.user_name}</p>
+                                    <p>ที่อยู่ : {order.user_address} </p>
+                                    <p>เบอร์โทร์ : {order.user_tel}</p>
                                     {/* <p>หลักฐานการโอน : <img src={order.Silp} Style="width: 200px;" /></p> */}
                                     <p>สถานะ : {order.status}
                                     </p>
-                                    <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order._id)}>
-                                        เพิ่มหมายเลขติดตามสินค้า
-                                </button>
+                                    {order.user_id == "PoK3aDRlXeYhtHWBg1sMYSZIOHo1" &&
+                                        <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order._id)}>
+                                            เพิ่มหมายเลขติดตามสินค้า
+                                </button>}
+
+
                                     <p>หมายเลขติดตามสินค้า : {order.TrackingNumber} </p>
                                 </div>
                             </div>
@@ -56,12 +59,14 @@ class PaymentMornitor extends Component {
 
 
                         </div>
+                        {order.user_id == "PoK3aDRlXeYhtHWBg1sMYSZIOHo1" &&
+                            <div class="btn-group dropup mb-2 ">
+                                <button type="button" class={order.status == "ข้อมูลการชำระเงินถูกต้อง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "ข้อมูลการชำระเงินถูกต้อง")}>ข้อมูลการชำระเงินถูกต้อง</button>
+                                <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "สินค้ากำลังจัดส่ง")}>สินค้ากำลังจัดส่ง</button>
+                                <button type="button" class={order.status == "สินค้าจัดส่งสำเร็จ" ? "btn btn-success ml-2 mr-2 " : "btn btn-secondary ml-2 mr-2"} onClick={() => onChangeStatus(order, "สินค้าจัดส่งสำเร็จ")}>สินค้าจัดส่งสำเร็จ</button>
+                            </div>
+                        }
 
-                        <div class="btn-group dropup mb-2 ">
-                            <button type="button" class={order.status == "ข้อมูลการชำระเงินถูกต้อง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "ข้อมูลการชำระเงินถูกต้อง")}>ข้อมูลการชำระเงินถูกต้อง</button>
-                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => onChangeStatus(order, "สินค้ากำลังจัดส่ง")}>สินค้ากำลังจัดส่ง</button>
-                            <button type="button" class={order.status == "สินค้าจัดส่งสำเร็จ" ? "btn btn-success ml-2 mr-2 " : "btn btn-secondary ml-2 mr-2"} onClick={() => onChangeStatus(order, "สินค้าจัดส่งสำเร็จ")}>สินค้าจัดส่งสำเร็จ</button>
-                        </div>
                     </div>
                 </div>
             )
